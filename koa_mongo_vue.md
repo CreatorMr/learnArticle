@@ -1,35 +1,36 @@
 # koa+mongodb+vue 博客demo
 
 ### 背景：
-    1、之前项目开发中使用的thinkJs。像通过使用koa学习了解中间件的流程控制(洋葱模型)。
-    2、mysql 关系型数据库，数据的关联性非常强。mongodb 是文档型 ，没有表的概念，不用设计“表”等数据库。
+1、之前项目开发中使用的thinkJs。像通过使用koa学习了解中间件的流程控制(洋葱模型)。
+2、mysql 关系型数据库，数据的关联性非常强。mongodb 是文档型 ，没有表的概念，不用设计“表”等数据库。
       使用mysql的时候，设计表关系，画模型图。mongo直接 上JSON 。不想画表模型，没用过想用mongo (ps: 我写我说得算)
-    3、练手， 自己管理文档的地方，东放西放，写的记不住，也找不到了(复习“书丢了”)。
+3、练手， 自己管理文档的地方，东放西放，写的记不住，也找不到了(复习“书丢了”)。
 ### 项目简介
-        这是练手项目，从0-1，从前到后的博客demo，模块，首页，文章、分类、标签、个人中心等。
+这是练手项目，从0-1，从前到后的博客demo，模块，首页，文章、分类、标签、个人中心等。
     服务端使用koa,学习中间件的流程控制，数据库使用mongodb 了解文档型数据库，vue 中使用了部分ts，在项目中没有实际应用过，借此学习使用。
 
-    功能点： 
+功能点： 
 
-    1、首页 
-       swiper 功能点入口 。。。
-    2、文章
-        展示标签云，按标签过滤，按关键字(title, 描述)等搜索，分页。。。。
-    3、文章详情
-        查看详情，使用markdown形式展示，管理员身份可编辑创建，暂时只支持留言功能。。。
+1、首页 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;swiper 功能点入口 。。。
+2、文章
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;展示标签云，按标签过滤，按关键字(title, 描述)等搜索，分页。。。。
+3、文章详情
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查看详情，使用markdown形式展示，管理员身份可编辑创建，暂时只支持留言功能。。。
         创建、编辑文章、图片上传服务器
-    4、分类列表
-        分类展示，按分类过滤。。。。
-    5、标签列表
-        按标签过滤，新增标签。。。。
-    6、项目部署
-        使用pm2 部署 
+4、分类列表
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 分类展示，按分类过滤。。。。
+5、标签列表
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 按标签过滤，新增标签。。。。
+6、项目部署
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用pm2 部署 
         脚本部署version1 ，version2
     ........
-    TODO 
-      美化页面、评论回复，登录加密，评论发送邮件。。。
+TODO 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;美化页面、评论回复，登录加密，评论发送邮件。。。
+
 ### Let`s Go
-    先来两个tree
+先来两个tree
     server:
 ```
     .
@@ -72,7 +73,8 @@
     │       └── sendEmail.js
     └── webpack.config.js
 ```
-    fe: 
+fe: 
+```
     .
     ├── README.md
     ├── babel.config.js
@@ -137,10 +139,13 @@
     ├── vue.config.js
     ├── yarn-error.log
     └── yarn.lock
+```
 
-    一、数据库
-    MongoDB不支持事务操作，所以需要用到事务的应用建议不用MongoDB，另外MongoDB目前不支持join操作，需要复杂查询的应用也不建议使用MongoDB。
-    创建链接
+ 一、数据库
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MongoDB不支持事务操作，所以需要用到事务的应用建议不用MongoDB，另外MongoDB目前不支持join操作，需要复杂查询的应用也不建议使用MongoDB。
+
+创建链接
+
 ```
     // mongo 自身的链接方式
     const MongoClient = require('mongodb').MongoClient
@@ -172,7 +177,7 @@
     return mongoose.connection
     }
 ```
-    这里有个坑，在使用mongoose 使用，schema 是不能重复定义的，在使用设置自增字段的时候只能初始化一次
+<font color=red>这里有个坑，在使用mongoose 使用，schema 是不能重复定义的，在使用设置自增字段的时候只能初始化一次</font>
 
 ```
     // 在app中单独定义一个user 的 model挂在全局 在自定义的中间件中使用
@@ -187,7 +192,7 @@
     })
 ```
 
-    mongoose 操作model 
+mongoose 操作model 
     Func：save()、query()、queryById()...
     不用创建表，只要定义好schema就行，创建好数据库，“表” =》 集合(collection) 会根据schema自动以复数形式创建，也可手动创建。
     这里举个例子
@@ -428,48 +433,6 @@ if [ ! "$push" ]; then
  exit;
 fi
 
-npm run build
-
-# 登录服务器
-#!/bin/bash
-echo "开始部署!"
-
-user=$1
-host=$2
-pwd=$3
-
-# -e 开启转义 -c 不换行
-# echo "It is a test" > myfile
-
-for i in "$*"; do
-    echo "参数列表 $i"
-done
-
-
-:<<EOF
-1、spawn：启动命令
-2、expect：等待来自进程的特定的字符串
-3、send：发送字符串到进程
-4、interact：允许用户交互
-EOF
-
-if [ -n "$3" ]; then
-
-commit=$(git status | grep -e "nothing to commit, working tree clean" -e "nothing added to commit")
-
-if [ ! "$commit" ]; 
-then
- echo "本地还有未提交的代码，请先提交"
- exit;
-fi
-
-push=$(git status | grep -e "Your branch is up")
-echo "$push"
-if [ ! "$push" ]; then
- echo "本地还有未push的代码，请先push"
- exit;
-fi
-
 
 npm run build
 
@@ -506,7 +469,7 @@ fi
 使用vue-cli选择ts 生成项目，默认没有vue.config.js。。。
 将md-text-loader 配置进去在本地编写或者引入使用/
 文章列表页面，根据标签过滤，关键字搜索，分页，详情功能。
-![logo.png](http://chuantu.xyz/t6/738/1591273373x2073446431.png)
+![1591605651585.jpg](http://106.53.236.144:3000/img/1591605651585.jpg)
 
 详情页面，点击留言判断登录，管理员身份可编辑当前文章，或者创建新文章。
 
@@ -574,37 +537,40 @@ export default class Article extends Vue {
 
 2、安装基本工具
 安装git node pm2 】
+```
 mkdir /data/app -p 
 yum install wget
 yum install git
-
+```
 安装node 
+```
 wegt https://nodejs.org/dist/v12.17.0/node-v12.17.0-linux-x64.tar.xz
 tar -zvf node-v12.17.0-linux-x64.tar.xz
 mv node-v12.17.0-linux-x64 nodejs
-
+```
 配置环境变量 /etc/profile
 
 安装数据库
-
+```
 curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.6.tgz
 tar -zxvf mongodb-linux-x86_64-3.0.6.tgz
 mv  mongodb-linux-x86_64-3.0.6/ /usr/local/mongodb
-
+```
 配置环境变量 /etc/profile
-
-./mongo  执行操作数据库命令
-./mongod 启动数据库
-
+```
+./mongo  //执行操作数据库命令
+./mongod // 启动数据库
+```
 
 安装nginx
+```
 wget -c https://nginx.org/download/nginx-1.11.6.tar.gz
 yum install gcc-c++
 yum install -y pcre pcre-devel
 yum install -y zlib zlib-devel
 yum install -y openssl openssl-devel
 
-
+```
 配置nginx
 ```
         listen       80;
