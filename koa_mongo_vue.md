@@ -247,19 +247,37 @@ koa 中间件流程控制 koa 本身没有捆绑任何中间件，一直在使�
 ```
 // eq:
 class Koa {
-    constructor(context) {
-        this.context = context;
-        this.middlewares = [];
-    }
-    use(fn) {
-        this.middleware.push(fn);
-        return this;
-    }
+  constructor(options) {
+    options = options || {}
+    this.middleware = [];
+  }
+  use(fn) {
+    this.middleware.push(fn)
+    return this
+  }
+  listen(...args) {
+    http.createServer(function(req, res){
+      res.writeHead(200, {'Content-type' : 'text/html'});
+      res.write('<h1>Node.js</h1>');
+      res.end('<p>Hello World</p>');
+      console.log('server start ....')
+     }).listen(...args);
+  }
 
-    listen(port) {
-        let a = http.createSever()
-    }
-}
+  callback() { // 处理具体的请求和相应
+
+  }
+
+  handleRequest() {
+
+  }
+  respond() {
+
+  }
+
+  createContext(req, res) {
+
+  }
 
 const app = new Koa();
 
