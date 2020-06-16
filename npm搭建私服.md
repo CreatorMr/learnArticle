@@ -36,19 +36,31 @@ nrm use mynpm
 ```
 
 
+本地配置
+
 创建好私有库，将源设置到本地
 ```
 nrm ls
-nrm add sinopia http://106.53.236.144:4873/
+nrm add sinopia http://地址
 nrm ls
 nrm use sinopia
 ```
+
 
 添加用户
 ```
 npm adduser
 ```
+登录
+```
+npm login
+```
 
+设置@xxx 源地址
+
+```
+npm config set @xxx:registry npm源库地址
+```
 
 发布包
 
@@ -77,11 +89,6 @@ npm unpublish your-name --force
 
 使用
 
-设置@xxx 源地址
-
-```
-config set @xxx:registry npm源库地址
-```
 
 全局安装
 ```
