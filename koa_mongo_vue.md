@@ -487,7 +487,7 @@ fi
 使用vue-cli选择ts 生成项目，默认没有vue.config.js。。。
 将md-text-loader 配置进去在本地编写或者引入使用/
 文章列表页面，根据标签过滤，关键字搜索，分页，详情功能。
-![1591605651585.jpg](http://106.53.236.144:3000/img/1591605651585.jpg)
+![1591605651585.jpg](http://106.52.111.158:3000/img/1591605651585.jpg)
 
 详情页面，点击留言判断登录，管理员身份可编辑当前文章，或者创建新文章。
 
@@ -622,7 +622,7 @@ yum install -y openssl openssl-devel
 ```
 使用nohup ./mongod &  守护进程启动
 
-博客地址 [传送门](http://106.53.236.144/)
+博客地址 [传送门](http://106.52.111.158/)
 server地址 [传送门](https://github.com/CreatorMr/koa_mongo_vue_server)
 client地址 [传送门](https://github.com/CreatorMr/koa_mongo_vue_fe)
 
