@@ -71,7 +71,7 @@ for (const plugin of options.plugins) {
 通过接收的compiler对象 ，可以监听这个对象，从而触发各种事件，然后执行对应的操作函数。类似node 的EventEmitter,深入看下去其实就是发布订阅。
 
 webpack本质上是一种事件流的机制，将每个插件都串联起来。之前整理的loader部分，现在的plugin部分和loader理解上大体一样。这里把webpack工作比成西天取经(哈哈，语文功底差，能比成啥就是啥了，重在理解)。  西天取经要九九八十一难，没有一难都是一次洗礼。 这里 Tapable就入场了。他们就是师徒四人(可能是多人，毕竟里面的钩子类辣么多，如下)
-![image.png](http://106.52.111.158:3000/img/image.png)
+![tapable.jpg](http://106.52.111.158:3000/img/tapable.jpg)
 
 
 在apply方法中执行 compiler.hooks.钩子(emit, afterDone, afterEmit, .....等)()

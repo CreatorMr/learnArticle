@@ -77,7 +77,20 @@ runLoaders({
   context,
   readResource
 }, (err, result)=> {
-  // for of loaders
+  // for of loaders 
+
+  let modulePath;
+  let {  test, use } = rule 
+  let len = rule.length-1
+  if(test.test(modulePath)) {
+    function normalLoad() {
+      let loader = require(use[length-1])
+      if(len>=0) {
+        content = loader(content)
+      }
+    }
+    normalLoad()
+  }
 })
 ```
 
