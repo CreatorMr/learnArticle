@@ -65,4 +65,35 @@ modules.exports = function(src) {
 }
 ```
 
+### 源码分析
+
+在compilation中链路找到 NormalModule.js文件
+
+```
+// 执行
+runLoaders({
+  resource,
+  loaders,
+  context,
+  readResource
+}, (err, result)=> {
+  // for of loaders
+})
+```
+
+runLoaders 方法 来自 loader-runner npm包中
+
+从build-module 开始构建的module的时候，将使用文件对应的loader加载.所以就到了doBuild 方法 也就是上面我们提到的runLoaders 
+这里使用loader加载完成处理文件生成js。再将js 解析成AST语法树
+![image.png](http://106.52.111.158:3000/img/image.png)
+
+后面 解析 webpack进入打包，打包原理这里几不在深入了
+最后放一个图吧
+![webpack.jpg](http://106.52.111.158:3000/img/webpack.jpg)
+参考： 
+文章 [地址](https://segmentfault.com/a/1190000008060440)
+文章2 [地址](https://lihuanghe.github.io/2016/05/30/webpack-source-analyse.html)
+
+
+
 
