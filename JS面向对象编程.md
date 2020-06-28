@@ -56,7 +56,7 @@ function _new(Func, ...args) {
   let result = Func.call(obj, ...args)
 
   // 3、分析返回结果 如果返回引用 对象，就返回这个
-  if(result !== null && /^(object|function)$/.test( typeof result === result)) return result;
+  if(result !== null && /^(object|function)$/.test( typeof result)) return result;
   return obj;
 }
 
@@ -65,7 +65,7 @@ function _new2(Func) {
   let obj = Object.create(Func.prototype)
   let result = Func.call(obj, ...args)
    // 3、分析返回结果 如果返回引用 对象，就返回这个
-  if(result !== null && /^(object|function)$/.test( typeof result === result)) return result;
+  if(result !== null && /^(object|function)$/.test( typeof result)) return result;
   return obj;
 }
 ```
