@@ -2,7 +2,7 @@
 
 webpack 工作本质上是一种事件流的工作机制。之前整理的loader和plugin 其中都是通过Tapable串联起来的。所以说Tapable是webpack中base类。在webpack 启动编译 都在运用这Tapable 中的钩子方法
 webpack 编译Complier构造器的hooks都是Tapable的实例，在compilation中hooks同样也是。如代码
-```
+```Javascript
 //compiler
 	this.hooks = Object.freeze({
 			/** @type {SyncHook<[]>} */
@@ -50,7 +50,7 @@ SyncBailHook | 同步串行| 只要监听函数中有一个返回值不为 null/
 
 ##### 最小单元
 tapable实际上就是运用的发布订阅模式
-```
+```Javascript
 class SyncHook{
     constructor(args) {
         this.tasks = []
@@ -76,7 +76,7 @@ hook.call('creator');
 ```
 
 像SyncHook和BailSyncHook 的区别返回值的问题，遇到null是否继续  tap（） 存在return 。 其他钩子waterfall 链式传值等。一个一个使用中理解每种钩子的使用场景和实现方式的匹配关系。
-```
+```Javascript
 class SyncBailHook{
     constructor(args) {
         this.tasks = []

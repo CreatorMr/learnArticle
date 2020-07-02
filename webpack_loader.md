@@ -11,12 +11,12 @@ loader 模块需要导出为一个函数的node模块
 export出来的function，只接收一个参数(包含资源文件内容的字符串)
 loader 分为
 * 同步loader
-```
+```Javascript
 this.callback(null, 同步操作(content), sourceMaps , ast)
 return; // return undefined
 ```
 * 异步loader  
-```
+```Javascript
 var callback = this.async()
 异步操作。then( r=> {
   if(err) return callback(err)
@@ -29,7 +29,7 @@ loader工具库
 * loader-utils  常用eq: 获取传递给loader的选项 
 * schema-utils  配合loader-utils 使用，保证loader选项
 
-```
+```Javascript
 import { getOptions } from 'loader-utils';
 import validateOptions from 'schema-utils';
 
@@ -56,7 +56,7 @@ export default function(source) {
 ```
 
 简单的demo 
-```
+```Javascript
 modules.exports = function(src) {
   if(src) { // 处理反转字符串
     src = src.split('').reverse().join('')
@@ -69,7 +69,7 @@ modules.exports = function(src) {
 
 在compilation中链路找到 NormalModule.js文件
 
-```
+```Javascript
 // 执行
 runLoaders({
   resource,

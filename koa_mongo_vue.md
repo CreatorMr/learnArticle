@@ -32,7 +32,7 @@ TODO
 ### Let`s Go
 先来两个tree
     server:
-```
+```javascript
     .
     ├── README.md
     ├── app.js
@@ -74,7 +74,7 @@ TODO
     └── webpack.config.js
 ```
 fe: 
-```
+```javascript
     .
     ├── README.md
     ├── babel.config.js
@@ -146,7 +146,7 @@ fe:
 
 创建链接
 
-```
+```javascript
     // mongo 自身的链接方式
     const MongoClient = require('mongodb').MongoClient
     const url = "mongodb://localhost:27017/"
@@ -166,7 +166,7 @@ fe:
     }
 ```
 
-```
+```javascript
     // 使用 mongoose 的链接方式  这里推荐使用  mongoose 操作更加友好。
     const mongoose = require('mongoose')
     const autoIncrement = require('mongoose-auto-increment')
@@ -179,7 +179,7 @@ fe:
 ```
 <font color=red>这里有个坑，在使用mongoose 使用，schema 是不能重复定义的，在使用设置自增字段的时候只能初始化一次</font>
 
-```
+```javascript
     // 在app中单独定义一个user 的 model挂在全局 在自定义的中间件中使用
     global.dbUser = db.model("users",{
         email: String,
@@ -196,7 +196,7 @@ mongoose 操作model
     Func：save()、query()、queryById()...
     不用创建表，只要定义好schema就行，创建好数据库，“表” =》 集合(collection) 会根据schema自动以复数形式创建，也可手动创建。
     这里举个例子
-```
+```javascript
     // 文章内容
         {
             _id: ObjectId("xxxxx")
@@ -219,7 +219,7 @@ mongoose 操作model
             category: []
         } 
 ```
-```
+```javascript
         // eq:
         query (conditions = {}, fields= {} , options = {}) {
             return this.model.find(conditions, fields, options)
@@ -229,7 +229,7 @@ mongoose 操作model
             .exec()
         }
 ```
-```
+```javascript
 
         // tag schema
         {
@@ -244,7 +244,7 @@ mongoose 操作model
 
 二  服务端
 koa 中间件流程控制 koa 本身没有捆绑任何中间件，一直在使用中间件，支持基本接口外，支持编辑markdown的图片上传，实现了简单的图片服务
-```
+```javascript
 // eq:
 class Koa {
   constructor(options) {
@@ -312,7 +312,7 @@ a
                 └── schema.js
    
  controllers 下 处理逻辑
- ```
+ ```javascript
     // 获取所有文章
     const getAll = async (ctx, next) => {
     // const param = ctx.request.query.param
@@ -401,7 +401,7 @@ utils 中第三方方法
 
 在使用webpack 对node进行打包的时候设置target:node 
 同时注意设置以下部分，否则静态资源无法访问 
-```
+```javascript
 node: {
     __dirname: false
 }
@@ -411,7 +411,7 @@ node: {
 //'mock': The fixed value '/'.
 ```
 
-```
+```javascript
 #!/bin/bash
 echo "开始部署!"
 
@@ -492,7 +492,7 @@ fi
 详情页面，点击留言判断登录，管理员身份可编辑当前文章，或者创建新文章。
 
 分类列表和标签列表，点击过滤，标签可以新增。、、
-```
+```javascript
 <script lang="ts">
 import {
   Component,
@@ -555,13 +555,13 @@ export default class Article extends Vue {
 
 2、安装基本工具
 安装git node pm2 】
-```
+```javascript
 mkdir /data/app -p 
 yum install wget
 yum install git
 ```
 安装node 
-```
+```javascript
 wegt https://nodejs.org/dist/v12.17.0/node-v12.17.0-linux-x64.tar.xz
 tar -zvf node-v12.17.0-linux-x64.tar.xz
 mv node-v12.17.0-linux-x64 nodejs
@@ -569,19 +569,19 @@ mv node-v12.17.0-linux-x64 nodejs
 配置环境变量 /etc/profile
 
 安装数据库
-```
+```javascript
 curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.6.tgz
 tar -zxvf mongodb-linux-x86_64-3.0.6.tgz
 mv  mongodb-linux-x86_64-3.0.6/ /usr/local/mongodb
 ```
 配置环境变量 /etc/profile
-```
+```javascript
 ./mongo  //执行操作数据库命令
 ./mongod // 启动数据库
 ```
 
 安装nginx
-```
+```javascript
 wget -c https://nginx.org/download/nginx-1.11.6.tar.gz
 yum install gcc-c++
 yum install -y pcre pcre-devel
@@ -590,7 +590,7 @@ yum install -y openssl openssl-devel
 
 ```
 配置nginx
-```
+```javascript
         listen       80;
         server_name  localhost;
 

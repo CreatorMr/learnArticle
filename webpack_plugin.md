@@ -5,7 +5,7 @@ webpack plugin 简单来说做loader做不了的事, plugin更加灵活
 
 webpack插件具有apply属性的javascript对象。
 超级简单的demo，然而还是啥也不知道
-```
+```Javascript
 class MyPlugin {
   constructor(opt) {
     this.options = Object.assign({}, opt || {})
@@ -21,7 +21,7 @@ class MyPlugin {
 module.exports = MyPlugin
 ```
 下面让走进源码结合官网文档的plugin的API去学习如何编写webpack-plugin
-```
+```Javascript
 //webpack.js
 module.exports = webpack = (opt, callback) => {
   const compiler;
@@ -59,7 +59,7 @@ webpack4.0支持， 最初用的之前的webpack项目直接写插件，一直�
 ### 源码解析
 
 在webpack.config.js中 webpack会按顺序实例化plugin对象。从上面入口webpack.js中 实际上对于插件的最重要的就是apply，依次调用每个plugin的apply方法
-```
+```Javascript
 for (const plugin of options.plugins) {
   if (typeof plugin === "function") {
     plugin.call(compiler, compiler);
@@ -78,7 +78,7 @@ webpack本质上是一种事件流的机制，将每个插件都串联起来。�
 这些钩子都是师徒中的实例出来的（猴子的分身）
 
 现在轮到compiler 
-```
+```Javascript
 /**
 * @param {string} context the compilation path
 */
@@ -104,7 +104,7 @@ class Compiler extends Tapable {
 在Compilation 处理编译的所有事情，找findModule、buildModule、getModule、processModuleDependencies、moduleGraph...
 这里面包含模块资源、编译生成的资源，变化文件，依赖状态，关系图等，提供给plugin使用。
 在实际使用中，compiler。hooks的使用场景根据文档查阅。比如我想改变文件内容，或者根据输入构造的新的数据结构存成新的文件到输出等。使用
-```
+```Javascript
 afterEmit
 AsyncSeriesHook
 生成资源到 output 目录之后。
