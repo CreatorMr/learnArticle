@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>两列定宽中间自适应布局</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<h1>1、流体布局</h1>
+
+<div class="left"></div>
+<div class="right"></div>
+<div class="center"></div>
+
+<style type="text/css">
+
+    .left{
+        width: 200px;
+        height: 100px;
+        background-color: red;
+        float: left;
+
+    }
+    .right{
+        width: 100px;
+        height: 100px;
+        background-color: green;
+        float: right;
+    }
+    .center{
+        height: 100px;
+        background-color: yellow;
+        margin-left: 200px;
+        margin-right: 100px;
+    }
+</style>
+<h1>2、BFC三栏布局</h1>
+<p>BFC规则，BFC区域不会与浮动元素重叠，利用这一点进行三列布局</p>
+<p>
+    触发条件：
+        1、body 根元素
+        2、浮动元素：float 除 none 以外的值
+        3、绝对定位元素：position (absolute、fixed)
+        4、display 为 inline-block、table-cells、flex
+        5、overflow 除了 visible 以外的值 (hidden、auto、scroll)
+</p>
+<div class="BFCleft"></div>
+<div class="BFCright"></div>
+<div class="BFCcenter"></div>
+<style type="text/css">
+    .BFCleft{
+        width: 300px;
+        height: 200px;
+        background-color: blue;
+        float: left;
+        margin-right: 10px;
+
+    }
+    .BFCright{
+        width: 300px;
+        height: 200px;
+        float: right;
+        background-color: yellow;
+        margin-left: 10px;
+    }
+    .BFCcenter{
+        height: 200px;
+        background-color: green;
+        overflow: hidden;
+    }
+</style>
+<h1>3、双飞翼布局SFY</h1>
+<p>利用的是浮动元素 margin 负值的应用</p>
+<div class="container">
+    <div class="SFYcenter"></div>
+</div>
+<div class="SFYleft"></div>
+<div class="SFYright"></div>
+<style type="text/css">
+    .container{
+        width: 100%;
+        float: left;
+    }
+    .SFYcenter{
+        height: 100px;
+        background-color: red;
+        margin-left: 210px;
+        margin-right: 110px;
+    }
+    .SFYleft{
+        float: left;
+        width: 200px;
+        height: 100px;
+        background-color: green;
+        margin-left: -100%;
+
+    }
+    .SFYright{
+        float: right;
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        margin-left: -200px;
+    }
+</style>
+<h1>4、圣杯布局SB</h1>
+<p>圣杯布局有包裹div且全部左浮动</p>
+<div class="wrap">
+    <div class="SBcenter"></div>
+    <div class="SBleft"></div>
+    <div class="SBright"></div>
+</div>
+<style type="text/css">
+    .wrap{
+        margin-left: 120px;
+        margin-right: 220px;
+    }
+    .SBcenter{
+        float: left;
+        height: 100px;
+        background-color: blue;
+        width: 100%;/*才会展示出来*/
+    }
+    .SBleft{
+        float: left;
+        width: 100px;
+        height: 100px;
+        background-color: yellow;
+        margin-left: -100%;
+        position: relative;
+        left: -120px;
+
+    }
+    .SBright{
+        float: left;
+        width: 200px;
+        height: 100px;
+        background-color: red;
+        margin-left: -200px;
+        position: relative;
+        right: -220px;
+        
+    }
+</style>
+<div style="clear: both;"></div>
+<h1>5、Flex布局</h1>
+<div class="FlexWrap">
+    <div class="Flexcenter"></div>
+    <div class="Flexleft"></div>
+    <div class="Flexright"></div>
+</div>
+<style type="text/css">
+    .FlexWrap{
+        display: flex;
+    }
+    .Flexcenter{
+        flex-grow: 1;
+        height: 100px;
+        background-color: blue;
+    }
+    .Flexleft{
+        order: -1;
+        flex: 0 1 200px;
+        background-color: red;
+        height: 100px;
+        margin-right: 10px;
+
+    }
+    .Flexright{
+        flex: 0 1 100px;
+        background-color: green;
+        height: 100px;
+        margin-left: 10px;
+    }
+</style>
+<h1>6、绝对定位布局position: absolute</h1>
+<div class="PAWrap">
+    <div class="PAcenter"></div>
+    <div class="PAleft"></div>
+    <div class="PAright"></div>
+</div>
+<style type="text/css">
+    .PAWrap{
+        position: relative;
+    }
+    .PAcenter{
+        height: 200px;
+        margin: 0 160px 0 210px;
+        background-color: red;
+    }
+    .PAleft{
+        width: 200px;
+        height: 200px;
+        background-color: yellow;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .PAright{
+        width: 150px;
+        height: 200px;
+        background-color: green;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+</style>
+
+<h3>7、table布局</h3>
+<div id="tablewrap">
+   <div id="left_table"></div>
+    <div id="tablexmain"></div>
+   <div id="right_table"></div>
+</div>
+<style type="text/css">
+   #tablewrap{
+    display: table;
+    width:100%;
+   }
+   #tablemain,#left_table,#right_table{
+    display: table-cell;
+   }
+   #tablexmain{
+     background-color: blue;
+     height: 300px;
+   }
+   #left_table{
+    height: 300px;
+    width: 200px;
+    background-color: red;
+   }
+   #right_table{
+    height: 300px;
+    width: 100px;
+    background-color: green;
+   }
+   /*缺点无法设置栏间距*/
+</style>
+</body>
+ 
+</html>
