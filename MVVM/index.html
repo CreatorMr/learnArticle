@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MVVM</title>
+</head>
+<style>
+  #app {
+    text-align: center;
+  }
+</style>
+
+<body>
+  <div id="app">
+    <h2>{{person.name}}</h2>
+    <div class="name-class">{{msg}}</div>
+    <div v-text="msg"></div>
+    <div v-text='person.name'></div>
+    <div v-html="htmlStr"></div>
+    <div v-html="msg"></div>
+    <div>{{getNewName}}</div>
+    <ul>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+    </ul>
+    <input type="text" v-model="msg" />
+    <button v-on:click="handleClick">v-on:click</button>
+    <button @click="handleClick">@click</button>
+  </div>
+</body>
+<script src="./watcher.js"></script>
+<script src="./observer.js"></script>
+<script src="./compile.js"></script>
+<script src="./mvvm.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+<script type="text/javascript">
+  let vm = new MVVM({
+    el: '#app',
+    data: {
+      person: {
+        name: 'jack',
+        age: 18,
+        fav: '西西西西西西西西西嘻嘻'
+      },
+      msg: '我是一个msg',
+      htmlStr: ' 我是一个html'
+    },
+    computed: {
+      getNewName() {
+        return this.person.name + ': computed'
+      }
+    },
+
+    methods: {
+      handleClick: () => {
+        console.log(vm.$data.person.age)
+        console.log(vm.person.age)
+      }
+    }
+  })
+
+</script>
+
+</html>

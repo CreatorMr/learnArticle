@@ -6,7 +6,7 @@ loader 模块需要导出为一个函数的node模块
 该函数在loader转换资源的时候调用，。给定的函数将调用loader API，并通过this上下文访问
 
 编写本地loader开发测试
-* resolveLoader.modules 配置 ，henpeck会从该目录中搜索loaders。
+* resolveLoader.modules 配置 ，webpack会从该目录中搜索loaders。
 
 export出来的function，只接收一个参数(包含资源文件内容的字符串)
 loader 分为
