@@ -1,10 +1,11 @@
+
 变量没有意义，只是存储值
 alert(2) '2' 基于alert 输出的结果都会转化为字符串  ：把值（如果是表达式先计算出结果）
 通过toString这个方法转换为字符串 然后在输出
 
 
 ？Object.prototype.toString.call()
-alert([12,34]) => "12,34"
+alert([12,34]) => '12,34'
 alert({name: 'xxx'}) => [object, object] 为啥和数组的不一样
 
 - confirm： 和 alert 用法一致
@@ -17,7 +18,7 @@ alert(flag)
 
 node不是语言，node也是一个基于V8引擎渲染和解析JS的工具  长得不像浏览器的“浏览器”
 
-### P9 number 类型的详细剖析
+###  number 类型的详细剖析
 1、number
 NaN： not a number 但是他是数字类型的
 isNaN： 检测当前是否不是有效数字  返回true 不是有效数字， 返回false 是有效数字
@@ -33,7 +34,7 @@ isNaN([12]) // false
 isNaN(/^$/) // true
 isNaN(function(){}) // true
 
-<font color="red">重要： isNaN 检测是机制</font>
+<font color='red'>重要： isNaN 检测是机制</font>
 1、首先验证当前要检测的值是否是数字类型，如果不是，浏览器会默认的把值转换为数字类型
     [把非数字类型转数字]
         - 其他基本类型转化为数字： 直接使用Number()这个方法转换的
@@ -121,7 +122,7 @@ undefined 代表的没有一般都不是惹味手动控制的，大部分都是�
 
 ### 12 关于对象的一些细节
 
-```
+```Javascript
 var obj = {
   name: 'dd'
   age:　30
@@ -159,7 +160,7 @@ var arr = [12,23]
    2）在当前作用域中声明一个变量a 
    3）让声明的变量和存储的12赋值给a => 赋值操作叫做定义
 
-   基本类型值（也叫值类型）是按照值来操作：把原有的值赋值一份放到新的空间或者位置上，和原来的值没有关系
+   基本类型值（也叫值类型）是按照值来操作：把原有的值复制一份放到新的空间或者位置上，和原来的值没有关系
 
   => 引用数据类型的值不能直接存储到当前的作用域下（因为可能存储的内容过于复杂） 需要先开辟一个新的空间（理解为仓库），把内容存储到空间中
     var obj1 = {n : 100}
@@ -188,7 +189,7 @@ var arr = [12,23]
 */
 var obj = {
   n: 10, 
-  n: obj.n * 10
+  m: obj.n * 10
 }
 console.log(obj.m)
 ```
@@ -314,7 +315,7 @@ sum()
 ```
 
 
-<font color="red" size=8>JS中数据类型转换汇总</font>
+<font color='red' size=8>JS中数据类型转换汇总</font>
 JS中的数据类型分为
 [基本数据类型]
  number、string、null、undefined、boolean、
@@ -473,6 +474,7 @@ NaN + [] -> 'NaN'
 ```
 ### 特殊情况： ‘==’ 在进行比较的时候，如果左右两边的数据类型不一样，则先转换为相同的乐行，再进行比较
 
+相同类型的情况 == 换成=== 进行比较
 - 对象==对象： 不一定相等，因为对象的操作的是引用地址，地址不相同，则不相等
 ```javascript
 {name: 'xxx'} == {name: 'xxx'} => false
@@ -488,7 +490,7 @@ obj1 == obj2 => true
 - 对象==字符串： 把对象转换为数字，把字符串也转换为数字
 - 字符串==数字： 字符串转换为数字
 - 字符串==布尔： 都转换为数字
-- 布尔==舒总： 把布尔转换为数字
+- 布尔==数字： 把布尔转换为数字
 
 ==============>不同情况比较都是 把其它值转换为数字，然后再比较的
 
@@ -501,13 +503,17 @@ NaN 和谁都不相等
 ==============>特殊记忆
 
 ```javascript
+1 == true -> true
+1 ==false -> false
+2 ==true -> false  true->1  2 == 1  false
 [] ==[] -> false
-![] == []
+![] == [] -> ![] -> false -> false == [] -> 0 == 0 -> true
+
 [] == false -> true 都转换为数字 0 == 0
-[] == true  -> false 
-![] == false -> true 先算 ![] ， 把数组转布尔取反=> false 
+![] == false -> true 先算 ![] ， 把数组转布尔取反=> false  false == false
+
+[] == true  -> false 0 == 1
 ![] == true ->  false 
-[] == true -> false 0 == 1
 ```
 
 ### 关于JS数组常用方法的剖析
@@ -541,6 +547,12 @@ var arr = [12, 23, 34]
 返回值： 新增后数组的长度
 原有数组改变
 arr.push()
+```javascript
+Array.prototype.push = function(val) {
+  this[this.length] = val
+  return this.length
+}
+```
 
 **`pop`**
 作用： 删除数组最后一项
@@ -736,6 +748,15 @@ arr.reduce((prev,cur) => prev.includes(cur) ? prev : [...prev,cur],[]);
 Array.from(new Set(arr))
 [...new Set(arr)]
 // 1 先排序，后与前不相等
+arr.sort((a,b)=>a-b)
+arr = arr.join('@') + '@'
+let reg = /(\d+@)\1*/g;
+let arr2 = []
+arr.replace(reg, (val, group1)=> {
+  console.log(val, group1)
+  arr2.push(Number(group1.slice(0, group1.length-1)))
+})
+console.log(arr2)
 // 2 、indexOf 
 ```
 
@@ -832,7 +853,7 @@ fn(a, 1 === 1? 10 :0);// => 实参一定是值，即使我们写的是变量或�
 
 
 
-函数执行的时候，都会星辰给一个全新的私有作用域(私有的栈内存)， 目的是：
+函数执行的时候，都会形成给一个全新的私有作用域(私有的栈内存)， 目的是：
 1、把原有的堆内存中存储的字符串变为JS表达式执行
 2、保护里面的私有变量不受外界的干扰（和外界是隔离得）
 我们把函数执行的这中保护机制，称之为“闭包”
