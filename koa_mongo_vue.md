@@ -622,7 +622,7 @@ yum install -y openssl openssl-devel
 ```
 使用nohup ./mongod &  守护进程启动
 
-博客地址 [传送门](http://106.52.111.158/)
+博客地址 [传送门](http://www.creatorking.top/)
 server地址 [传送门](https://github.com/CreatorMr/koa_mongo_vue_server)
 client地址 [传送门](https://github.com/CreatorMr/koa_mongo_vue_fe)
 
