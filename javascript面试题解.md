@@ -1254,3 +1254,5 @@ let result = findGroup(array, 2, 31)
 console.log(result)
 // result =[1,30] TOD
 ```
+
+

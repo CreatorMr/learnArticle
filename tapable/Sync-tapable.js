@@ -1,21 +1,21 @@
-let { SyncHook,SyncBailHook,SyncWaterfallHook,SyncLoopHook } =  require ('tapable')
+let { syncHook,SyncBailHook,SyncWaterfallHook,SyncLoopHook } =  require ('tapable')
 
 class Car {
     constructor() {//
         this.index = 0;
 		this.hooks = {
-            arch: new SyncHook(['name']),
+            arch: new syncHook(['name']),
             brch: new SyncBailHook(['name']),
             crch: new SyncWaterfallHook(['name']),
             drch: new SyncLoopHook(['name'])
 		};
     }
     tap() {
-        this.hooks.arch.tap('synchook-node', function(name){
-            console.log('synchook-node ',name)
+        this.hooks.arch.tap('syncHook-node', function(name){
+            console.log('syncHook-node ',name)
         })
-        this.hooks.arch.tap('synchook-react', function(name){
-            console.log('synchook-react ',name)
+        this.hooks.arch.tap('syncHook-react', function(name){
+            console.log('syncHook-react ',name)
         })
 
         // SyncBailHook
@@ -64,6 +64,6 @@ myCar.tap()
 myCar.start('creator');
 
 /**
- * 实现原理 SyncHook.js SyncBailHook.js SyncWaterfallHook.js  SyncLoopHook.js
+ * 实现原理 syncHook.js SyncBailHook.js SyncWaterfallHook.js  SyncLoopHook.js
  */ 
 
