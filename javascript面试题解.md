@@ -1256,3 +1256,66 @@ console.log(result)
 ```
 
 
+```javascript
+// 输入任意对象，任意参数路径能获取对应的值的 js 函数
+get(obj, 'selector.to.toutiao', 'target[0]', 'target[2].name')
+var obj = { 
+		selector: {
+			to: { toutiao: "FE Coder"} 
+		}, 
+		target: [
+			1, 
+			2, 
+			{ name: 'byted' }
+		]
+	};
+function get(data, ...args) {
+  const res = JSON.stringify(data);
+  var a = args.map((item) => (new Function(`return ${res}.${item} `))());
+  console.log(a)
+}
+```
+
+```javascript
+// 输入 任意对象， 任意参数  安全检车并返回对应的值
+function safeAccessObj(obj, ...args) {
+  if(!obj) return null;
+  let result = []
+  let reg = /([a-zA-Z_$]+[a-zA-Z_$0-9]*)|\[([0-9]+)\]*/g;
+  args.forEach(item=> {
+    let arr = execAll(reg, item)
+    let t = arr.reduce((pre, cur) => {
+      if(typeof pre !== 'object') return pre;
+      if(cur.indexOf('[') !==-1) {
+        // return pre[cur.replace(/\[([0-9]+)\]/, "$1")]
+        return eval(`pre${cur}`)
+      } else {
+        return pre[cur];
+      }
+    },obj)
+    result.push(t)
+  })
+  return result;
+
+  // path.replace(/[a-zA-Z]+|\[([0-9]+)\]/g, (a, b) => {console.log(b)})
+  // 'a.b.c[9].d[33]'.replace(/([a-zA-Z]+)|\[([0-9]+)\]/g, (a, b,c) => {console.log(a, '-',b,c)})
+
+}
+console.log(safeAccessObj({"a":{"b":{"c":[0,1,{"d":"hahha"},3,{"name":"name000"}]},"m":"dsafads"}}, 'a.b.c[2].d', 'a.m'))
+// console.log(safeAccessObj({a:{b:{c:[0,1,{d:'hahha'},3,{name:'name000'}]}}}, 'a.b.c'))
+
+function execAll(reg, str) {
+  let arrRes = [];
+  let res = reg.exec(str)
+
+  while(res) {
+    let [big, ] = res
+    arrRes.push(big)
+    res = reg.exec(str)
+  }
+  return arrRes
+}
+// console.log(execAll(/([a-zA-Z_$]+[a-zA-Z_$0-9]*)|\[([0-9]+)\]*/g, 'a.b.v[9].name'))
+
+
+```
