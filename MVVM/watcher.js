@@ -25,7 +25,7 @@ class Watcher{
   }
 }
 
-// 订阅  存放观察者的地方  存放所有的watcher
+// 发布(subject)  存放观察者的地方  存放所有的watcher
 class Dep{
   constructor() {
     this.subs = [] 
