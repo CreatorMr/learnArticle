@@ -6,24 +6,24 @@ class Role{
         this.actions = [];
         this.execs = {}
     }
-    addMethod(methond,func) {
+    addMethod(method,func) {
         let actions = this.actions
         // error 箭头函数没有arguments
-        Role.prototype[methond] =  (...rest) => {
+        Role.prototype[method] =  (...rest) => {
             console.log(rest)
             actions.push({
-                methond,
+                method,
                 args:rest
             })
             return this;
         }
         // 将执行时候的函数挂到execs上
-        this.execs[methond] = func.bind(this)
+        this.execs[method] = func.bind(this)
     }
     async exec(){
         for(let i = 0; i<this.actions.length; i++){
             let action = this.actions[i]
-            await this.execs[action.methond].apply(this,action.args)
+            await this.execs[action.method].apply(this,action.args)
         }
         return this;
     }
