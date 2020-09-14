@@ -38,18 +38,17 @@ const add = (a, b, c, d, e) => {
   return a + b + c + d + e;
 }
 
-const curring = (fn, arr = []) => {
+const curring = (fn, ...arr) => {
   let len = fn.length // 长度指代的是函数的参数个数
-  return (...args) => { // 保存用户传入的参数
-    arr = arr.concat(args) // [1]
+  return (...args) => {
+    // arr = arr.concat(args)
+    arr = [...arr, ...args]
     if(arr.length < len) { // 通过传递的参数 不停的判断是否达到函数执行的参数个数
-      return curring(fn, arr); // [1] 
+      return curring(fn, arr)
     }
-    return fn(...args); // 如果达到了执行个数之后，会让函数执行
+    return fn(...arr) //// 如果达到了执行个数之后，会让函数执行
   }
 }
-
-
 
 console.log(curring(add)(1)(2)(3, 4)(5))// 15
 
