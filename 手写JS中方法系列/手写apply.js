@@ -21,4 +21,4 @@
     return result;
   }
   Function.prototype.apply = newApply
-}
+}()

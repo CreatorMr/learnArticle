@@ -17,4 +17,4 @@
     return result;
   }
   Function.prototype.call = newCall
-}
+}()

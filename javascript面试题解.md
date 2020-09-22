@@ -154,7 +154,7 @@ let normalize = arr => arr.reduce((pre, cur, index, arr) => cur.constructor === 
     return res;
   }
   Array.prototype.myFlat = myFlat
-}
+}()
 ```
 
 ### new 实现

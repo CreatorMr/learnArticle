@@ -16,4 +16,4 @@
 
   }
   Function.prototype.bind = newBind;
-}
+}()

@@ -20,4 +20,4 @@ Array.prototype.newFilter = function(callback,thisArgs) {
     k++
   }
   return resArr;
-}
+}()
