@@ -1,11 +1,11 @@
-~function() {
+~function () {
   function newCall(context, ...args) {
-    context = context === undefined ? context : window
+    context = context === undefined ? window : context
 
     let type = typeof context;
 
-    if(!/^(object|function)$/.test(type)) {
-      if(/^symbol|bigint$/.test(type)) {
+    if (!/^(object|function)$/.test(type)) {
+      if (/^symbol|bigint$/.test(type)) {
         context = Object(context);
       }
       context = new context.constructor(context) // 处理字符串
@@ -18,3 +18,6 @@
   }
   Function.prototype.call = newCall
 }()
+
+func.call(obj, ...args)
+

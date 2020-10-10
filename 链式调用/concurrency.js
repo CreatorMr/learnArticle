@@ -2,7 +2,7 @@
 const axios = (index, timer) => {
 	console.log(`start request: 第${index}个请求`)
 	return new Promise((resolve, reject) => {
-		setTimeout(_=> resolve(`第${index}个请求完成`), timer || 5000)
+		setTimeout(_ => resolve(`第${index}个请求完成`), timer || 5000)
 	})
 }
 
@@ -15,27 +15,27 @@ class AsyncLimit {
 		this.queueList = []
 	}
 	async awaitQueue() {
-		return new Promise(resolve=>this.queueList.push(resolve))
+		return new Promise(resolve => this.queueList.push(resolve))
 	}
 	async request(fn, ...args) {
 		return new Promise(async (resolve, reject) => {
-			if(this.curRequestCount >= this.limit) {
+			if (this.curRequestCount >= this.limit) {
 				await this.awaitQueue()
 			}
 			this.curRequestCount++
 			return this.play(fn, args, resolve, reject)
 		})
 	}
-  
-  async play(fn, args, resolve, reject) {
-		let t = fn(...args).then(resolve, reject).finally(_=>{
+
+	async play(fn, args, resolve, reject) {
+		let t = fn(...args).then(resolve, reject).finally(_ => {
 			this.curRequestCount--
-			if(this.queueList.length) {
+			if (this.queueList.length) {
 				let nextReq = this.queueList.shift()
 				nextReq()
 			}
 		})
-  }
+	}
 }
 
 let reqAsync = new AsyncLimit(2)
