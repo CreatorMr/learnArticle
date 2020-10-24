@@ -1,9 +1,7 @@
 ~function () {
   function newCall(context, ...args) {
     context = context === undefined ? window : context
-
     let type = typeof context;
-
     if (!/^(object|function)$/.test(type)) {
       if (/^symbol|bigint$/.test(type)) {
         context = Object(context);

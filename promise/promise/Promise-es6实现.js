@@ -3,25 +3,25 @@ const RESOLVED = 'RESOLVED'
 const REJECTED = 'REJECT'
 
 const resolvePromise = function (promise, x, resolve, reject) {
-  if(promise === x) {
+  if (promise === x) {
     throw new Error("循环引用")
   }
- 
+
   if (x !== null && (typeof x === "object" || typeof x === "function")) {
     // 标识变量，防止递归内外层 resolve 和 reject 同时调用
     // 针对 Promise，x 为普通值的时候可以放行
     var called;
     try {
       var then = x.then // 取then 有可能会出错
-      if(typeof then === 'function') {
-        then.call(x,  y=>{
+      if (typeof then === 'function') {
+        then.call(x, y => {
           if (called) return;
-                    called = true;
+          called = true;
           // 如果 y 是 Promise 就继续递归解析
           resolvePromise(promise2, y, resolve, reject);
-        }, y=> {
+        }, y => {
           if (called) return;
-                    called = true;
+          called = true;
           reject(y)
         })
       } else { // x 普通对象或者 普通值
@@ -87,17 +87,17 @@ class Promise {
           // 判断x 得 值 =》 promise2 的状态
           //  resolve(x)
           try {  // 捕获异步的异常
-              // onFulfilled 执行完返回值的处理，x 为成功回调的返回值
-              // x 可能是普通值 ，可能是promise
-              var x = onFulfilled(this.value);
+            // onFulfilled 执行完返回值的处理，x 为成功回调的返回值
+            // x 可能是普通值 ，可能是promise
+            var x = onFulfilled(this.value);
 
-              // 处理返回值单独封装一个方法
-              /**
-               * 判断x 值 => promise2 的状态
-               */
-              resolvePromise(promise2, x, resolve, reject);
+            // 处理返回值单独封装一个方法
+            /**
+             * 判断x 值 => promise2 的状态
+             */
+            resolvePromise(promise2, x, resolve, reject);
           } catch (e) {
-              reject(e);
+            reject(e);
           }
         }, 0)
       }
@@ -109,7 +109,7 @@ class Promise {
           } catch (error) {
             reject(error)
           }
-          
+
         }, 0)
       }
       // 异步情况
@@ -168,7 +168,7 @@ class Promise {
   }
   static reject(reason) {
     return new Promise(function (resolve, reject) {
-        reject(reason);
+      reject(reason);
     });
   }
 
@@ -183,18 +183,18 @@ class Promise {
         result[index] = data;
         idx++
 
-        if(promises.length === idx) {
+        if (promises.length === idx) {
           resolve(result)
         }
       }
 
-      for(var i = 0; i < promises.length; i++) {
+      for (var i = 0; i < promises.length; i++) {
         (function (i) {
-            promises[i].then(function (data) {
-              promiseData(i, data);
-            }, reject);
+          promises[i].then(function (data) {
+            promiseData(i, data);
+          }, reject);
         })(i);
-    }
+      }
 
     })
 
@@ -202,16 +202,16 @@ class Promise {
 
   static race(promises) {
     return new Promise(function (resolve, reject) {
-        for(var i = 0; i < promises.length; i++) {
-            promises[i].then(resolve, reject);
-        }
+      for (var i = 0; i < promises.length; i++) {
+        promises[i].then(resolve, reject);
+      }
     });
   }
 
-  finally (callback) {
+  finally(callback) {
     let P = this.constructor;
     return this.then(
-      value  => P.resolve(callback()).then(() => value),
+      value => P.resolve(callback()).then(() => value),
       reason => P.resolve(callback()).then(() => { throw reason })
     );
   }

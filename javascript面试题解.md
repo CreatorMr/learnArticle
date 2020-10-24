@@ -319,6 +319,27 @@ var quickSort = function (arr) {
 };
 
 /**
+ * 希尔排序
+ * 
+ */
+Array.prototype.shell = function shell() {
+    let gap = Math.floor(this.length / 2);
+    while (gap >= 1) {
+        for (let i = gap; i < this.length; i++) {
+            while (i - gap >= 0 && this[i] < this[i - gap]) {
+                swap(this, i, i - gap);
+                i = i - gap;
+            }
+        }
+        gap = Math.floor(gap / 2);
+    }
+};
+let arr = [58, 23, 67, 36, 40, 46, 35, 28, 20, 10];
+arr.shell();
+console.log(arr);
+ 
+
+/**
  * 二分查找
  */
 function binary_search(arr, key) {
@@ -1198,7 +1219,14 @@ console.log(arr2)
 
 
 ```
+### 类数组转数组
+```javascript
+Array.from(arguments)
+Array.prototype.slice.call(arguments)
+[...arguments]
 
+Array.prototype.concat.apply([], arguments)
+```
 ### 斐波那契数列
 
 实现一个 fibonacci 函数，要求实现以下的功能
