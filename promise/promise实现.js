@@ -251,7 +251,6 @@ Promise.all = function (promises) {
         function processData(index, data) {
             result[index] = data; // 将返回值存入数组
             idx++;
-
             if (idx === promises.length) {
                 resolve(result);
             }
