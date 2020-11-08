@@ -48,7 +48,6 @@ class Compile {
          // v-text v-html v-on:click
         let [, type] = name.split('-')
         let [nodeType, eventType] = type.split(':')
-        debugger
         CompileUtil[nodeType](node, value, this.vm, eventType)
       } else if(this.starsWith2(name)){
         let eventType = name.slice(1)

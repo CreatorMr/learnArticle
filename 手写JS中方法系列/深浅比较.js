@@ -21,3 +21,38 @@ function _assignDeep(obj1, obj2) {
   }
   return obj;
 }
+
+
+function _is(val1, val2) {
+  const type1 = val1 === null ? 'null' : typeof val1,
+      type2 = val2 === null ? 'null' : typeof val2;
+  // 函数
+  if (type1 === "function" && type2 === "function") {
+      return val1.toString() === val2.toString();
+  }
+  // 对象
+  if (type1 === "object" && type2 === "object") {
+      // 正则和日期
+      const ct1 = val1.constructor,
+          ct2 = val2.constructor;
+      if ((ct1 === RegExp && ct2 === RegExp) || (ct1 === Date && ct2 === Date)) {
+          return val1.toString() === val2.toString();
+      }
+      // 其它对象
+      const keys1 = Object.keys(val1),
+          keys2 = Object.keys(val2);
+      if (keys1.length !== keys2.length) return false;
+      for (let i = 0; i < keys1.length; i++) {
+          let key1 = keys1[i],
+              key2 = keys2[i];
+          if (key1 !== key2) return false;
+          let item1 = val1[key1],
+              item2 = val2[key2];
+          let flag = _is(item1, item2);
+          if (!flag) return false;
+      }
+      return true;
+  }
+  // 其它
+  return val1 === val2;
+}

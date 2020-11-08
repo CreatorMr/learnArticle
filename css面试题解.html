@@ -15,6 +15,13 @@
   <div class="separate"></div>
   </br>
   <div class="triangle"></div>
+  <h1>请输入数字</h1>
+  <input type="number" min='1' max="10">
+  <h2>结果：</h2>
+
+  <input type="checkbox" name="" id="">
+  <input type="checkbox" name="" id="">
+  <input type="checkbox" name="" id="">
 </body>
 <style>
   .triangle-arrow {
@@ -64,6 +71,28 @@
     border-color: red white;
     /*border-right:10px;*/
   }
+
+
+  input{
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 20px;
+  }
+  input:out-of-range{
+    background: gold;
+  }
+  input:out-of-range + h2::after {
+    content: '超出范围'
+  }
+  input::after {
+    content: '已勾选';
+    display: none;
+    width: 150px;
+    height: 50px;
+    margin-left: 110px;
+  }
+  input:checked::after{display: block;}
 </style>
 
 </html>

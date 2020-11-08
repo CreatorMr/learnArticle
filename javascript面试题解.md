@@ -1,3 +1,25 @@
+### document.ready和window.onload的区别
+首先$(function(){}) 和 $(document).ready(function(){}) 是一个方法，$(function(){})为简写（用的多）
+
+document.ready方法在DOM树加载完成后就会执行，
+
+而window.onload是在页面资源（比如图片和媒体资源，它们的加载速度远慢于DOM的加载速度）加载完成之后才执行。
+
+也就是说$(document).ready要比window.onload先执行。
+```javascript
+window.onload=function(){
+  document.getElementById("bg").style.backgroundColor="#F90";
+}
+```
+### 类数组转成数组
+```javascript
+function similarArrayToArray(arr) {
+  // return Array.prototype.slice.call(arguments)
+  // return Array.from(arguments)
+  return [...arguments]
+}
+```
+
 ### call 和 apply 的区别是什么,哪个性能更好一些
 
 ```javascript
@@ -1386,4 +1408,113 @@ function execAll(reg, str) {
   return arrRes;
 }
 // console.log(execAll(/([a-zA-Z_$]+[a-zA-Z_$0-9]*)|\[([0-9]+)\]*/g, 'a.b.v[9].name'))
+```
+
+### 实现一个类，可以on,emit,off,once，注册、调用、取消、注册仅能使用一次的事件
+```javascript
+function Event() {
+  this._events = {};
+}
+Event.prototype.on = function(type, fn) {
+  if(!this._events[type]) {
+    this._events[type] = []
+  }
+  this._events[type].push(fn);
+}
+Event.prototype.off = function(type, fn) {
+  if(!this._events[type]) {
+    return;
+  }
+  if(!fn) {
+    this._events[type] = undefined;
+    return
+  }
+  let index = this._events[type].indexOf(fn)
+  this._events[type].splice(index, 1)
+}
+Event.prototype.emit = function(type) {
+  if (!this._events[type]) {
+    return;
+  }
+  this._events[type].forEach(fn => fn());
+}
+Event.prototype.once = function(type, fn) {
+  let _this = this;
+  const once = function() {
+    fn.apply(_this, arguments)
+    this.off(type, fn)
+  }
+  this.on(type, once)
+}
+```
+
+### base64 转文件 
+```javascript
+// canvas.toDataURL  ===> base64
+//base64 转文件 
+function dataURLtoFile(dataurl, filename) {//将base64转换为文件
+  var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+  while(n--){
+      u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, {type:mime});
+}
+```
+
+### 手写setTimeout
+```javascript
+let setTimeout = (fn, timeout, ...args) => {
+  // 初始当前时间
+  const start = +new Date()
+  let timer, now
+  const loop = () => {
+    timer = window.requestAnimationFrame(loop)
+    // 再次运行时获取当前时间
+    now = +new Date()
+    // 当前运行时间 - 初始当前时间 >= 等待时间 ===>> 跳出
+    if (now - start >= timeout) {
+      fn.apply(this, args)
+      window.cancelAnimationFrame(timer)
+    }
+  }
+  window.requestAnimationFrame(loop)
+}
+```
+
+### async 函数是什么  就是 Generator 函数的语法糖
+Generator  函数是es6的提供的一个一种异步编程解决方案，我们上面也说过了
+* async/await 是基于Promise 实现的， 不能用于普通的回调函数
+* async/await 得异步代码看起来像同步代码
+* async函数的实现原理：就是将Generator函数和自动执行器，包装在一个函数里
+
+async + await  原理  generate+ yield， 使得异步代码看起来像同步代码
+```javascript
+function* test() {
+  const data = yield getData()
+  const data2 = yield getData()
+  return 'success'
+}
+const getData = () => new Promise(resolve => setTimeout(_ => resolve('data'), 1000))
+function asyncToGen(genFunction) {
+  return function (...args) {
+    const gen = genFunction.apply(this, args)
+    return new Promise((resolve, reject) => {
+      function step(key, args) {
+        let genResult;
+        try {
+          genResult = gen[key](args);
+        } catch (err) {
+        }
+        let { value, done } = genResult;
+        if (done) { resolve(value) };
+        // 这里返回 用Promise.resolve包装下
+        return Promise.resolve(value).then(val => step('next', val), err => step('throw', err))
+      }
+      step('next')
+    })
+  }
+}
+const gen = asyncToGen(test)
+gen().then(res => console.log(res))
 ```

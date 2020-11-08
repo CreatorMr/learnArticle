@@ -1,3 +1,4 @@
+//千分符
 String.prototype.millimeter = function millimeter() {
   return this.replace(/\d{1,3}(?=(\d{3})+$)/g, value => {
     return value + ',';
