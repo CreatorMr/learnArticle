@@ -987,7 +987,7 @@ Iterator 的作用有三个：
 Generator函数可以通过配合Thunk 函数更轻松更优雅的实现异步编程和控制流管理。
 
 
-### 模拟点击事件
+### 76模拟点击事件
 
 ```javascript
 let a = document.createElement("a"); 
@@ -995,4 +995,14 @@ let event = new MouseEvent("click");
 a.download = `wxapp${this.fromSource?'-'+this.fromSource:''}` || "photo"
 a.href = this.previewWxappQrCode; 
 a.dispatchEvent(event);
+```
+
+### 77.
+```javascript
+Function.prototype.a = () => alert(1);
+Object.prototype.b = () => alert(2);
+function A() {}
+const a = new A();
+a.a();
+a.b();
 ```
