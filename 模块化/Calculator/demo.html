@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="JS_Calculator">
+    <p>
+      <input type="text" placeholder="第一个数字">
+      <input type="text" placeholder="第二个数字">
+    </p>
+    <p>计算结果： <span class="result">0</span></p>
+    <p>
+      <button data-field="plus">+</button>
+      <button data-field="minus">-</button>
+      <button data-field="mul">*</button>
+      <button data-field="div">/</button>
+    </p>
+  </div>
+
+  <script src="./calculator.js"></script>
+  <script type="text/javascript">
+    new Calculator()
+  </script>
+</body>
+</html>
