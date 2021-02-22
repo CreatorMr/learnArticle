@@ -19,10 +19,10 @@ const resolvePromise = function (promise, x, resolve, reject) {
           called = true;
           // 如果 y 是 Promise 就继续递归解析
           resolvePromise(promise2, y, resolve, reject);
-        }, y => {
+        }, r => {
           if (called) return;
           called = true;
-          reject(y)
+          reject(r)
         })
       } else { // x 普通对象或者 普通值
         resolve(x);
@@ -76,7 +76,7 @@ class Promise {
     }
     if (typeof onRejected !== 'function') {
       onRejected = function (error) {
-        throw err;
+        throw error;
       }
     }
 

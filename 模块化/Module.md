@@ -74,6 +74,13 @@ commonjs导出的是一个值拷贝，会对加载结果进行缓存，一旦内
 IE6 之前是没有JS 引擎的
 渲染引擎
 
+最早就是在script标签中写代码
+
+模块化的发展
+一个js 文件太大
+index.js  index2.js  防止一个文件太大  最早的模块化 ---  出现公共的怎么办？ ---> common.js 提到公共的js 文件中 
+
+
 CommonJS 的模块主要由原生的module来实现。
 ```javascript
 Module {
@@ -127,7 +134,7 @@ requie([module], callback) //引入模块
 
 RequireJS 需要配置路径
 ```javascript
-requie.config({
+require.config({
   path: {
     moduleA: 'js/module_a.js'
   }
@@ -153,7 +160,9 @@ exports导出 module 操作模块
 依赖就近 按需加载  
 
 跟CommonJS和AMD 本质上的不同 
+
 AMD 依赖前置 模块都加载完成才执行回调
+
 CMD 依赖就近，需要A 再去引用模块A  而不是在模块都加载完成再执行，而是在某个地方需要的时候 再加载， 产生依赖就近的原则。
 
 
@@ -191,3 +200,5 @@ YUI 模块化 JavaScript 函数库
 
 参考： 
 [CommonJS 和 ES6 Module 究竟有什么区别？](https://blog.csdn.net/xgangzai/article/details/106935104)
+[CommonJS模块与ES6模块的区别](https://www.cnblogs.com/unclekeith/archive/2017/10/17/7679503.html)
+[exports,module.exports,  export,export default ](https://segmentfault.com/a/1190000010426778)
