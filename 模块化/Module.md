@@ -193,7 +193,18 @@ const a = require('./a.js') // a 是一个空对象
 2、CommonJS模块是在运行时加载
    ES6 模块是在编译时加载，本身就是模块
 
+--------
+1、加载类型： CommonJS 运行时加载  / esmodule 编译时加载或者静态加载
+2、加载范围： CommonJS 整个对象，  esmodule 只加载引入的方法。
+3、效率：  es-module 效率比 CommonJS 高 。  编译时就完成模块的加载。
+4、动静态特点： CommonJS ”动态的“  esmodule ”静态的“ 
+5、this指向： CommonJS的this指向当前模块     esmodule的this指向 undefined
+6、值：CommonJS 值拷贝模块中值变 已经加载进来的值不受影响(分基本类型和复杂类型)  /esmodule静态分析，动态引用，值变，引用就变，原来模块中的值改变则改加载的值也改变， (只读)
+7、循环加载： CommonJS 加载时执行，require的时候全部执行，出现循环加载，只输出已经执行的部分，未执行的不会输出/es6模块是动态引用，只要两个模块之间存在引用，代码就能执行。
+8、是否提升： import会提升到顶部，CommonJS不会提升require
+9、使用：CommonJS 是module.exports / exports 导出，require导入    esmodule export导出 import导入
 
+--------
 
 YUI 模块化 JavaScript 函数库
 

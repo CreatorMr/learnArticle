@@ -11,8 +11,8 @@
 
 </body>
 <script type="module">
-  import { aImport, objImport, obj } from './import.js'
-  console.log(aImport, objImport, 'import- 打印')
+  import objDefault2 ,{ aImport, objImport, obj, default as objDefault} from './import.js'
+  console.log(aImport, objImport, 'import- 打印',objDefault, '默认',objDefault2)
 
   // import data from './import.js'
   // // import { defalut as data } './import.js'
