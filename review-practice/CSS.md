@@ -1,3 +1,49 @@
+### 伪类和伪元素
+* 伪元素只能放在最后且不能叠加。
+* 伪类可以叠加使用。
+* 伪元素其实就是添加了一个元素对象，而这个元素对象不会占用DOM元素节点
+
+|伪类| 伪元素| 
+| :-------- | --------:|
+| 状态类 :link :visited :hover :active :focus </br>结构类 :first-child :last-child :nth-child :nth-of-type</br> 表单类 :checked :disabled :valid :required</br> 语言类 :dir :lang   |  ::before ::after  </br> ::first-letter ::lirse-line </br> ::selection ::placeholder </br> ::backdrop |
+|修饰|创建对象|
+
+```javascript
+<h1>请输入数字</h1>
+<input type="number" min='1' max="10">
+<h2>结果：</h2>
+
+input{
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+input:out-of-range{
+  background: gold;
+}
+input:out-of-range + h2::after {
+  content: '超出范围'
+}
+```
+
+```javascript
+<input type="checkbox" name="" id="">
+<input type="checkbox" name="" id="">
+<input type="checkbox" name="" id="">
+
+input::after {
+  content: '已勾选';
+  display: none;
+  width: 150px;
+  height: 50px;
+  margin-left: 110px;
+}
+input:checked::after{display: block;}
+```
+
+### box-sizing: border-box
+border-box 告诉浏览器：你想要设置的边框和内边距的值是包含在width内的。也就是说，如果你将一个元素的width设为100px，那么这100px会包含它的border和padding，内容区的实际宽度是width减去(border + padding)的值。大多数情况下，这使得我们更容易地设定一个元素的宽高
 ### 八种清除浮动学习
 * 父级div 定义 height ： **不推荐使用，只建议高度固定的布局时使用**
 * 结尾处添加空div标签clear：both ：**添加一个空div，利用css提高的clear:both清除浮动，让父级div能自动获取到高度，不推荐使用，但此方法是以前主要使用的一种清除浮动方法**

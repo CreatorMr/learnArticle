@@ -75,3 +75,37 @@ var one = document.getElementById('one');
 one.click = function () {
   console.log(this.innerHTML) // this 为 one 元素
 }
+
+var x = 10;
+function a(y) {
+  var x = 20;
+  return b(y);
+}
+function b(y) {
+  return x + y
+}
+a(20)
+
+var name = 'dd'
+var obj = {
+  name: 'cc',
+  getName: function () {
+    console.log(1, this.name)
+    function ss() {
+      console.log(this.name)
+    }
+    ss()
+  }
+}
+obj.getName()
+
+
+var a = 0, b=0;
+function A(a) {
+  A = function(b) {
+    console.log(a + b++);
+  }
+  console.log(a++)
+}
+console.log(A(1))
+console.log(A(2))
