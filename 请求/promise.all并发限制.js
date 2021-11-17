@@ -1,6 +1,6 @@
 /**
  * Promise.all 并发限制及async-pool的应用
- * + 并发限制指的是，每个时刻并发执行的promise数量是固定的，最终执行结果害死保持与原来的
+ * + 并发限制指的是，每个时刻并发执行的promise数量是固定的，最终执行结果还是保持与原来的
  */
 
 const delay = function delay(interval) {
