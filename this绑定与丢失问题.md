@@ -1,6 +1,12 @@
 
-###  js中的this绑定与丢失
+###  this js中的this绑定与丢失
 
+#### this 的 获取
+
+浏览器  web ： window, this ,self,frames
+node : global
+worker: self
+通用： globalThis
 ##### this指向调用的对象与函数声明的位置无关，只与调用位置有关
 
 this 四种绑定

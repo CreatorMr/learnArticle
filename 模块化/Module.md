@@ -209,6 +209,53 @@ const a = require('./a.js') // a 是一个空对象
 YUI 模块化 JavaScript 函数库
 
 
+
+模块化的发展：
+
+IE6之前 没有JS引擎的，使用渲染引擎
+CommonJS使用原生的module来实现
+
+
+CommonJS --- 使用 原生module来实现
+
+Module {
+  id: '',// 如果是mainModule id 固定为 '.', 如果不是则为模块的绝对路径
+  exports: {},
+  filename: '/absolute/path/to/entry.js', // 当前模块的绝对路径
+  loaded: false, // 模块是否已加载完毕
+  children: [], // 被该模块引用的模块
+  parent: '', 第一个引用该模块的模块
+  paths: [// 模块的搜索路径
+    '/absolute/path/to/node_modules',
+    '/absolute/path/node_modules',
+    '/absolute/node_modules',
+    '/node_modules'
+  ]
+}
+
+require 最终调用的也是Module._load 方法
+require 引用进来的模块会变成一个立即执行函数 (function(exports, require, module, _filename, __dirname) {
+ ...
+})()
+
+AMD  asynchronous module definition 异步模块定义  依赖前置 
+
+define(moduleName, [module], factory)
+require([module], callback)
+
+RequireJS 配置路径
+require.config({
+	moduleA: './js/....a.js'
+})
+
+CMD 通用模块定义 阿里   依赖就近 按需加载  用的时候再引入
+seajs
+
+define(function(require, exports, module) {}) // 定义模块
+seajs.use([module路径], function() {})
+
+
+
 参考： 
 [CommonJS 和 ES6 Module 究竟有什么区别？](https://blog.csdn.net/xgangzai/article/details/106935104)
 [CommonJS模块与ES6模块的区别](https://www.cnblogs.com/unclekeith/archive/2017/10/17/7679503.html)

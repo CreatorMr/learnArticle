@@ -111,6 +111,36 @@ num = 12 ;
 ```
 undefined 代表的没有一般都不是惹味手动控制的，大部分都是浏览器自主为空（后面可以赋值也可以不赋值）
 
+
+是一个原始数据类型，也是一个原始值数据
+
+undefined是全局对象上个一个属性，window.undefined
+
+```
+console.log(window.undefined)
+
+// 不生效 writeable： false 不可写
+window.undefined = 1
+
+console.log(window.undefined)
+
+// 不可配置 configurable: false
+delete window.undefined
+
+// 不可枚举  enumerable: false
+for (const key in object) {
+    if (key === undefined) {
+        console.log(key)
+    }
+}
+
+Object.definePropertie(window, 'undefined', {
+    configurable: true,
+    enumerable: true,
+    writeable: true,
+    value: 11
+})
+```
 ### 11 对象数据类型
 
 ----
