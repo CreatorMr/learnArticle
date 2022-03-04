@@ -1,0 +1,20 @@
+export const createEnum = definition => {
+    const strToValueMap = {}
+    const nameToValueMap = {}
+    const arr = Object.keys(definition)
+    arr.forEach(enumName => {
+        const [val, desc] = definition[enumName]
+        strToValueMap[enumName] = val
+        nameToValueMap[val] = desc
+    })
+
+    return {
+        ...strToValueMap,
+        getDesc(enumName) {
+            return definition[enumName] && definition[enumName][1] || ''
+        },
+        getDescFromValue(value) {
+            return nameToValueMap[value]
+        },
+    }
+}
