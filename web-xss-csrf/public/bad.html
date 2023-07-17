@@ -1,0 +1,59 @@
+<!--
+ * @@author: Creator
+ * @LastEditTime: 2023-06-13 09:08:47
+ * @Description: 
+-->
+<!--
+ * @@author: Creator
+ * @LastEditTime: 2023-06-09 17:05:30
+ * @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>bad页面</title>
+        <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-06 col-md-offset-3">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h2>
+                                    转账页面
+                                    <p>用户: <span id="u"></span></p>
+                                    <p>金额: <span id="m"></span></p>
+                                </h2>
+                            </div>
+                            <div class="panel-body">
+                                <form name="myForm" action="http://localhost:3000/api/transfer" method="post">
+                                    <div class="form-group">
+                                        <label for="target">收款人</label>
+                                        <input type="text" name="target" class="form-control" value="test1" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amount">金额</label>
+                                        <input type="text" name="money" class="form-control"  value="9"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="转账" class="btn btn-primary" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/node_modules/jquery/dist/jquery.js"></script>
+        <script>
+            document.myForm.submit()
+        </script>
+    </body>
+</html>

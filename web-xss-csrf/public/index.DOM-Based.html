@@ -1,0 +1,41 @@
+<!--
+ * @@author: Creator
+ * @LastEditTime: 2023-06-09 15:56:57
+ * @Description: 
+-->
+<!--
+ * @@author: Creator
+ * @LastEditTime: 2023-06-08 16:55:04
+ * @Description: 
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css" />
+
+</head>
+<body>
+
+    <input type="text" id="web"> <button id="add">添加图片</button>
+    <div class="box"></div>
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        // 第二种 攻击的方式，不基于后端 ， DOM-Based 修改属性，插入内容，document.write....
+        // 改变结构后，会造成攻击
+        // 攻击的内容，xss payload
+        // <img src=""><script>alert(1)</script>"">
+        $('#add').on('click', function() {
+            // <img src="xxx" onerror="alert(1)" id=''/>
+            $('.box').html(`<img src="${$('#web').val()}" />`)
+
+           
+        })
+    </script>
+</body>
+</html>
